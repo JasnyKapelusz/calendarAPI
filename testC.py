@@ -2,9 +2,7 @@ import csv
 import re
 from datetime import datetime, timedelta
 
-desired_format = (
-    r"\d{1,2}/\d{1,2}/\d{4}"  # Pattern for date in format "month/day/year"
-)
+desired_format = r"\d{1,2}/\d{1,2}/\d{4}"  # Pattern for date in format "month/day/year"
 dates_found = []
 
 # Read the CSV file and store the rows
@@ -19,7 +17,7 @@ for row in rows:
     dates = re.findall(desired_format, ",".join(row))
     dates_found.extend(dates)
 
-# Function to generate the schedule based on start time and breaks
+
 def generate_schedule():
     # Początkowa godzina zajęć
     start_time = datetime.strptime("08:00", "%H:%M")
@@ -52,13 +50,8 @@ def generate_schedule():
     return schedule[:16], breakss[:16]  # Return only the first 16 blocks
 
 
-# Generate the schedule once
-time_schedule = generate_schedule()
-
-# Function to print the schedule for a specific date
 def print_schedule_for_date(date):
     day = date.split("/")[1]  # Extract the day from the date
-    date_index = rows[0].index(date)  # Find the index of the date in the first row
     start_index = (int(day) - 1) * 16 + 1  # Calculate the start index for the given day
     end_index = start_index + 16  # Calculate the end index
 
